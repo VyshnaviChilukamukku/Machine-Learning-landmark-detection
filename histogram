@@ -1,0 +1,11 @@
+print("Amount of classes with five and less datapoints:", (data['count'].between(0,5)).sum()) 
+
+print("Amount of classes with with between five and 10 datapoints:", (data['count'].between(5,10)).sum())
+
+n = plt.hist(df["landmark_id"],bins=df["landmark_id"].unique())
+freq_info = n[0]
+
+plt.xlim(0,data['landmark_id'].max())
+plt.ylim(0,data['count'].max())
+plt.xlabel('Landmark ID')
+plt.ylabel('Number of images')
