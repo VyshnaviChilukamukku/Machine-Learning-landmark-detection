@@ -1,0 +1,4 @@
+print(data['count'].describe())#statistical data for the distribution
+plt.hist(data['count'],100,range = (0,944),label = 'test')#Histogram of the distribution
+plt.xlabel("Amount of images")
+plt.ylabel("Occurences")
