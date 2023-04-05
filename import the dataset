@@ -1,0 +1,5 @@
+samples = 20000
+df = pd.read_csv("train.csv")
+df = df.loc[:samples,:]
+num_classes = len(df["landmark_id"].unique())
+num_data = len(df)
