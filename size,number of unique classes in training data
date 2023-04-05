@@ -1,0 +1,2 @@
+print("Size of training data:", df.shape)
+print("Number of unique classes:", num_classes)
