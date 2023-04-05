@@ -1,0 +1,7 @@
+data = pd.DataFrame(df['landmark_id'].value_counts())
+#index the data frame
+data.reset_index(inplace=True) 
+data.columns=['landmark_id','count']
+
+print(data.head(10))
+print(data.tail(10))
