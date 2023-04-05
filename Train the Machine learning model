@@ -1,0 +1,32 @@
+from sklearn.preprocessing import LabelEncoder
+lencoder = LabelEncoder()
+lencoder.fit(df["landmark_id"])
+
+def encode_label(lbl):
+    return lencoder.transform(lbl)
+    
+def decode_label(lbl):
+    return lencoder.inverse_transform(lbl)
+    
+def get_image_from_number(num):
+    fname, label = df.loc[num,:]
+    fname = fname + ".jpg"
+    f1 = fname[0]
+    f2 = fname[1]
+    f3 = fname[2]
+    path = os.path.join(f1,f2,f3,fname)
+    im = cv2.imread(os.path.join(base_path,path))
+    return im, label
+
+print("4 sample images from random classes:")
+fig=plt.figure(figsize=(16, 16))
+for i in range(1,5):
+    a = random.choices(os.listdir(base_path), k=3)
+    folder = base_path+'/'+a[0]+'/'+a[1]+'/'+a[2]
+    random_img = random.choice(os.listdir(folder))
+    img = np.array(Image.open(folder+'/'+random_img))
+    fig.add_subplot(1, 4, i)
+    plt.imshow(img)
+    plt.axis('off')
+
+plt.show()
