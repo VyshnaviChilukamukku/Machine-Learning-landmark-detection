@@ -1,0 +1,40 @@
+rom keras.applications import VGG19
+from keras.layers import *
+from keras import Sequential
+
+### Parameters
+# learning_rate   = 0.0001
+# decay_speed     = 1e-6
+# momentum        = 0.09
+
+# loss_function   = "sparse_categorical_crossentropy"
+source_model = VGG19(weights=None)
+#new_layer = Dense(num_classes, activation=activations.softmax, name='prediction')
+drop_layer = Dropout(0.5)
+drop_layer2 = Dropout(0.5)
+
+
+model = Sequential()
+for layer in source_model.layers[:-1]: # go through until last layer
+    if layer == source_model.layers[-25]:
+        model.add(BatchNormalization())
+    model.add(layer)
+#     if layer == source_model.layers[-3]:
+#         model.add(drop_layer)
+# model.add(drop_layer2)
+model.add(Dense(num_classes, activation="softmax"))
+model.summary()
+
+
+opt1 = keras.optimizers.RMSprop(learning_rate = 0.0001, momentum = 0.09)
+opt2 = keras.optimizers.Adam(learning_rate=0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-07)
+model.compile(optimizer=opt1,
+             loss="sparse_categorical_crossentropy",
+             metrics=["accuracy"])
+
+#sgd = SGD(lr=learning_rate, decay=decay_speed, momentum=momentum, nesterov=True)
+# rms = keras.optimizers.RMSprop(lr=learning_rate, momentum=momentum)
+# model.compile(optimizer=rms,
+#               loss=loss_function,
+#               metrics=["accuracy"])
+# print("Model compiled! \n")
